@@ -27,7 +27,7 @@ services:
       - db
 
   db:
-    container_name: pw_local_env-mysql
+    container_name: pw_local_env-db
     image: mysql:8.0
     restart: unless-stopped
     ports:
