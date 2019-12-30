@@ -38,6 +38,29 @@ Edit the file and add the following entry:
 
 At this point, you should be able to access to the application by visiting the following address in your browser [http://pw.test:8030/](http://pw.test:8030/).
 
+### Database
+
+There are multiple ways to access to the database inside the docker container. In this case we are going to cover two options:
+
+1. Manually accessing the container
+2. Using the adminer image
+
+#### Manually
+
+In order to manually access to the database, first, we need to copy the id of the **pw_local_env-db** container. To check it, use the `docker ps` command.
+
+Now, we are going to ssh into the container using the command `docker exec -it container_id bash`. At this point, you should be able to notice that the terminal prompt has changed because now you are inside of the container.
+
+To access the database, execute the command `mysql -u root -p`.
+
+#### Adminer image
+
+To access to the admin page, visit the URL [http://localhost:8080/](http://localhost:8080/) in your browser.
+
+The host should be **db** (the name of the service used in the docker-compose file).
+
+The user should be **root** and the password is the one specified in the .env file in the **MYSQL_ROOT_PASSWORD** field.
+
 ## QA
 
 1. How to list all the running containers
