@@ -8,7 +8,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 final class HomeController
 {
-    private $container;
+    private  $container;
+
 
 
     public function __construct(ContainerInterface $container)
@@ -24,4 +25,16 @@ final class HomeController
             []
         );
     }
+
+
+
+    public function showLanding(Request $request, Response $response): Response
+    {
+        return $this->container->get('view')->render(
+            $response,
+            'landing.twig',
+            []
+        );
+    }
+
 }

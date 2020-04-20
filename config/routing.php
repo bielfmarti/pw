@@ -2,7 +2,8 @@
 
 use \SallePW\SlimApp\Controller\HomeController;
 
-$app->get('/', HomeController::class . ':showHomePage')->setName('home');
+//$app->get('/', HomeController::class . ':showHomePage')->setName('home');
+$app->get('/', HomeController::class . ':showLanding')->setName('home');
 
 
 
