@@ -8,9 +8,13 @@
     <title>{% block title %}{% endblock %}</title>
     {% block head %}
         <link rel="stylesheet" href="{{ full_url_for('home') }}assets/css/styles.css"/>
+        <link rel="stylesheet" href="{{ full_url_for('signin') }}assets/css/styles.css"/>
+        <link rel="stylesheet" href="{{ full_url_for('signup') }}assets/css/styles.css"/>
     {% endblock %}
 </head>
 <body>
-{% block content %}{% endblock %}
+{% block content %}
+
+{% endblock %}
 </body>
 </html>
