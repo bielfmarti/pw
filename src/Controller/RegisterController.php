@@ -74,7 +74,43 @@ final class RegisterController
               $_SESSION['errorMail'] = $errorMail;
 
               $valid = false;
-              echo  "ur mail is bad";
+      }else{
+
+
+        $email = isset($_POST['email']) ? trim($_POST['email']) : null;
+
+        // List of allowed domains
+        $allowed = [
+            'salle.url.edu'
+        ];
+
+        // Make sure the address is valid
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) //validem email
+        {
+            // Separate string by @ characters (there should be only one)
+            $parts = explode('@', $email);
+
+            // Remove and return the last part, which should be the domain
+            $domain = array_pop($parts);
+
+            // Check if the domain is in our list
+            if ( ! in_array($domain, $allowed))
+            {
+                $valid = false;
+
+                $errorMail = "The email must be from la salle domain";
+
+                $_SESSION['errorMail'] = $errorMail;
+
+            }
+
+        }else{
+
+          $errorMail = "";
+
+          $_SESSION['errorMail'] = $errorMail;
+
+        }
       }
 
 
@@ -108,28 +144,37 @@ final class RegisterController
 
 
       if (strlen($password) < 5) { //mirem si es mes llarga que 5
+
               $errorPassword = "Introduce a password longer than 5 characters";
 
               $_SESSION["errorPassword"] = $errorPassword;
 
               $valid = false;
+
+      }else{
+
+        if(!(strtolower($password) != $password && strtoupper($password) != $password)){ //mirem si hi ha majuscules i minuscules
+
+            $valid = false;
+
+            $_SESSION["errorPassword"] = $errorPassword;
+
+        }else{
+
+          if (!(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $password))) //mirem si hi ha numeros i lletres
+          {
+
+              $valid = false;
+
+              $_SESSION["errorPassword"] = $errorPassword;
+
+          }else{
+
+            $_SESSION["errorPassword"] = "";
+
+          }
+        }
       }
-
-      if(!(strtolower($password) != $password && strtoupper($password) != $password)){ //mirem si hi ha majuscules i minuscules
-
-          $valid = false;
-
-          $_SESSION["errorPassword"] = $errorPassword;
-      }
-
-      if (!(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $password))) //mirem si hi ha numeros i lletres
-      {
-          $valid = false;
-
-          $_SESSION["errorPassword"] = $errorPassword;
-
-      }
-
 
       $currentDate = date("d-m-Y");
 
@@ -143,29 +188,43 @@ final class RegisterController
 
         $_SESSION["errorBirthday"] = $errorBirthday;
 
+      }else{
+
+        if(!($years >= 18) ){
+
+          $valid = false;
+
+          $errorBirthday = "You must be 18 years or older";
+
+          $_SESSION["errorBirthday"] = $errorBirthday;
+
+        }else{
+
+          $errorBirthday = "";
+
+          $_SESSION["errorBirthday"] = $errorBirthday;
+
+        }
+
       }
 
-      if(!($years >= 18)){
-
-        $valid = false;
-
-        $errorBirthday = "You must be 18 years or older";
-
-        $_SESSION["errorBirthday"] = $errorBirthday;
-
-      }
       if(!(empty($_POST['phone']))){
 
         if (!(preg_match('/(\+34|0034|34)?[ -]*(8|9)[ -]*([0-9][ -]*){8}/', $phone))) //telefono
         {
-            $valid = false;
+            //$valid = false;
 
-            $errorPhone = "Number must be legal in Spain";
+            $errorPhone = "Number should be legal in Spain";
 
             $_SESSION["errorPhone"] = $errorPhone;
 
         }
 
+      }else{
+
+        $errorPhone = "";
+
+        $_SESSION["errorPhone"] = $errorPhone;
       }
 
 
