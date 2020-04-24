@@ -1,0 +1,48 @@
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register</title>
+</head>
+
+<body>
+    <h1>Please enter your email and password you want to register as</h1>
+    <form action="sign-up" method="POST" accept-charset="utf-8">
+
+        <input type="email" name="email" value=" {{ oldMail }}" placeholder="Enter your email" required>
+
+        <br>
+
+        {{ errorMail }}
+
+        <br>
+
+        <input type="password" name="password" value="{{ oldPassword }}" placeholder="Enter your password">
+
+        <br>
+
+        {{ errorPassword }}
+
+        <br>
+
+        <input type="date" name="birthday" value="{{ oldBirthday }}" placeholder="Your birthday">
+        <br>
+
+        {{ errorBirthday }}
+
+        <br>
+        <input type="number" name="phone" value="{{ oldPhone }}" placeholder="Your phone (optional)">
+        <br>
+
+        {{ errorPhone }}
+
+        <br>
+        <button type="submit">Register</button>
+    </form>
+</body>
+
+</html>

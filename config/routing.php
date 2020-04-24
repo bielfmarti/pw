@@ -1,40 +1,18 @@
 <?php
 
 use \SallePW\SlimApp\Controller\HomeController;
+use \SallePW\SlimApp\Controller\RegisterController;
+use \SallePW\SlimApp\Controller\VisitsController;
+use \SallePW\SlimApp\Middleware\StartSessionMiddleware;
 
-//$app->get('/', HomeController::class . ':showHomePage')->setName('home');
+$app->add(StartSessionMiddleware::class);
+
 $app->get('/', HomeController::class . ':showLanding')->setName('home');
 
-
-
-
-
-
-/*
- * Amb controller, aquest hauria de ser el codi, quan funcioni la classe HomeController, posa aquest codi
- *
-<?php
-
-use \SallePW\SlimApp\Controller\HomeController;
-
-$app->get('/', HomeController::class . ':showHomePage')->setName('home');
- */
-
-
-
-
-/*
-<?php
-
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+$app->get('/sign-up', RegisterController::class . ':showSignUp');
+$app->post('/sign-up', RegisterController::class . ':registerMe');
 
 $app->get(
-    '/',
-    function (Request $request, Response $response) {
-        return $this->get('view')->render($response, 'home.twig', []);
-    }
-)->setName('home');
-
- *
- */
+    '/visits',
+    VisitsController::class . ":showVisits"
+)->setName('visits');
