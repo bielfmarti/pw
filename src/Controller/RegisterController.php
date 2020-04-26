@@ -37,6 +37,10 @@ final class RegisterController
     public function registerMe(Request $request, Response $response): Response
     {
 
+      $_SESSION["oldMail"] = "";
+      $_SESSION["oldPassword"] = "";
+      $_SESSION["oldBirthday"] = "";
+      $_SESSION["oldPhone"] = "";
 
       $_SESSION['error!'] = "prueba";
 
@@ -254,7 +258,6 @@ final class RegisterController
                       $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
                       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
                       $statement = $db->prepare("INSERT INTO user (email, password, birthday, phone) VALUES(:mail, :pass, :birthday, :phone)");
                       $filteredMail= filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                       $filteredPass = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -277,37 +280,39 @@ final class RegisterController
 
                       $mail = new PHPMailer(true);
 
+                      $_SESSION["errorPhone"] = "Activation mail sent to " . $email;
+
                       try {
                           //Server settings
-                          $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                          //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
                           $mail->isSMTP();                                            // Send using SMTP
                           $mail->Host       = 'mail.smtpbucket.com';                    // Set the SMTP server to send through
                           $mail->Port       = 8025;                                    // TCP port to connect to
 
                           //Recipients
                           $mail->setFrom('g18@pwpay.com', 'Mailer');
-                          $mail->addReplyTo('g2@pw.com', 'Information');
-                          $mail->addCC('g3@pw.com');
-                          $mail->addBCC('g4@pw.com');
+                          $mail->addReplyTo('g18@pwpay.com', 'Information');
+                          $mail->addCC($email);
 
                           // Content
                           $mail->isHTML(true);                                  // Set email format to HTML
                           $mail->Subject = 'Activation link for ' . $email;
 
-
-
                           $mail->Body = 'Click this link for activation: http://localhost/activate?token=' . $t;
 
                           $mail->send();
-                          echo 'Message has been sent';
+
+                          $_SESSION["errorMail"] = "";
+                          $_SESSION["errorPassword"] = "";
+                          $_SESSION["errorBirthday"] = "";
+
+                          $_SESSION["errorPhone"] = "Activation mail sent to " . $email;
+
                       } catch (Exception $e) {
                           echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                       }
 
-                      $_SESSION["errorMail"] = "";
-                      $_SESSION["errorPassword"] = "";
-                      $_SESSION["errorBirthday"] = "";
-                      $_SESSION["errorPhone"] = "";
+
 
                   } catch (PDOException $e) {
                       $errorPassword = $e;
