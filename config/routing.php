@@ -4,6 +4,7 @@ use \SallePW\SlimApp\Controller\HomeController;
 use \SallePW\SlimApp\Controller\RegisterController;
 use \SallePW\SlimApp\Controller\SignInController;
 use \SallePW\SlimApp\Controller\VisitsController;
+use \SallePW\SlimApp\Controller\AuthController;
 use \SallePW\SlimApp\Middleware\StartSessionMiddleware;
 
 $app->add(StartSessionMiddleware::class);
@@ -19,3 +20,8 @@ $app->get(
     '/visits',
     VisitsController::class . ":showVisits"
 )->setName('visits');
+
+$app->get('/activate',
+AuthController::class . ":showAuth", function ($request, $response, $args) {
+    // Show book identified by $args['id']
+})->setName('auth');;

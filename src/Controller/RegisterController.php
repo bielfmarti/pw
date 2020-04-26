@@ -2,11 +2,15 @@
 
 namespace SallePW\SlimApp\Controller;
 
-
 use PDO;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 
 final class RegisterController
 {
@@ -259,13 +263,47 @@ final class RegisterController
                       $statement->bindParam(':birthday', $birthday, PDO::PARAM_STR);
                       $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
                       $statement->execute();
-/*
-                      $to = 'alexvalletavira@gmail.com';
-                      $subject = 'Test email';
-                      $message = "Hello World!\n\nThis is my first mail.";
-                      $headers = "From: pwmail2020@gmail.com\r\nReply-To: pwmail2020@gmail.com";
-                      $mail_sent = @mail( $to, $subject, $message, $headers );
-                      echo $mail_sent ? "Mail sent" : "Mail failed";*/
+
+                      $statement = $db->query("SELECT USER.id FROM USER WHERE email LIKE '$email'" );
+                      $statement->execute();
+                      $info = $statement->fetch();
+
+                      $t = bin2hex(random_bytes(10));
+
+                      $statement = $db->prepare("INSERT INTO token (id_user, token) VALUES(:id_user, :token)");
+                      $statement->bindParam(':token', $t, PDO::PARAM_STR);
+                      $statement->bindParam(':id_user', $info[0], PDO::PARAM_STR);
+                      $statement->execute();
+
+                      $mail = new PHPMailer(true);
+
+                      try {
+                          //Server settings
+                          $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                          $mail->isSMTP();                                            // Send using SMTP
+                          $mail->Host       = 'mail.smtpbucket.com';                    // Set the SMTP server to send through
+                          $mail->Port       = 8025;                                    // TCP port to connect to
+
+                          //Recipients
+                          $mail->setFrom('g18@pwpay.com', 'Mailer');
+                          $mail->addReplyTo('g2@pw.com', 'Information');
+                          $mail->addCC('g3@pw.com');
+                          $mail->addBCC('g4@pw.com');
+
+                          // Content
+                          $mail->isHTML(true);                                  // Set email format to HTML
+                          $mail->Subject = 'Activation link for ' . $email;
+
+
+
+                          $mail->Body = 'Click this link for activation: http://localhost/activate?token=' . $t;
+
+                          $mail->send();
+                          echo 'Message has been sent';
+                      } catch (Exception $e) {
+                          echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                      }
+
                       $_SESSION["errorMail"] = "";
                       $_SESSION["errorPassword"] = "";
                       $_SESSION["errorBirthday"] = "";
