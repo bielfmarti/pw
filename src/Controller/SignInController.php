@@ -24,7 +24,9 @@ final class SignInController
         return $this->container->get('view')->render(
             $response,
             'signin.twig',
-            []
+            [
+                'is_login' => isset($_SESSION['is_login']),
+                ]
         );
     }
 
@@ -115,7 +117,7 @@ final class SignInController
             $connection = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
 
 
-            $sql = "SELECT id, email, password FROM USER ";
+            $sql = "SELECT id, email, password, verified FROM USER ";
 
             $statement = $connection->query($sql);
 
@@ -131,15 +133,15 @@ final class SignInController
 
                     if($a["password"]===$password){
 
-                        $_SESSION['login'] = $a['id'];
-          //              header("Location: search.php");
-
-
-         //               echo $_SESSION['login'];
-
-
-                        $error = "WELCOME";
-
+                        if($a["verified"]){
+                            $_SESSION['login'] = $a['id'];
+                            $_SESSION['is_login'] = true;
+                            //              header("Location: search.php");
+                            //               echo $_SESSION['login'];
+                            $error = "WELCOME";
+                        }else{
+                            $error = "Error, try again";
+                        }
 
 
                     }else{
@@ -165,6 +167,7 @@ final class SignInController
             'signin.twig',
             [
                 'error' => $error,
+                'is_login' => isset($_SESSION['is_login']),
 
             ]
         );

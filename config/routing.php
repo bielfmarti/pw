@@ -16,6 +16,8 @@ $app->post('/sign-up', RegisterController::class . ':registerMe')->setName('sign
 $app->get('/sign-in', SignInController::class . ':showSignIn')->setName('sign-in');
 $app->post('/sign-in', SignInController::class . ':login')->setName('sign-in');
 
+$app->get('/sign-out', HomeController::class . ':signout')->setName('sign-out');
+
 $app->get(
     '/visits',
     VisitsController::class . ":showVisits"

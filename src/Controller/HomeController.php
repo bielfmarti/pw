@@ -17,15 +17,6 @@ final class HomeController
         $this->container = $container;
     }
 
-    public function showHomePage(Request $request, Response $response): Response
-    {
-        return $this->container->get('view')->render(
-            $response,
-            'home.twig',
-            []
-        );
-    }
-
 
 
     public function showLanding(Request $request, Response $response): Response
@@ -33,7 +24,10 @@ final class HomeController
         return $this->container->get('view')->render(
             $response,
             'landing.twig',
-            []
+            [
+                'is_login' => isset($_SESSION['is_login']),
+
+            ]
         );
     }
 
@@ -45,6 +39,19 @@ final class HomeController
             []
         );
     }
+
+    public function signout(Request $request, Response $response): Response{
+
+
+        session_unset();
+
+        unset($_SESSION['is_login']);
+        unset($_SESSION['login']);
+
+
+        return $response->withStatus(302)->withHeader('Location', '/');
+    }
+
 
 
 }
