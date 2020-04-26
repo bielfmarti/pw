@@ -13,6 +13,7 @@ $app->get('/', HomeController::class . ':showLanding')->setName('home');
 $app->get('/sign-up', RegisterController::class . ':showSignUp')->setName('sign-up');
 $app->post('/sign-up', RegisterController::class . ':registerMe')->setName('sign-up');
 $app->get('/sign-in', SignInController::class . ':showSignIn')->setName('sign-in');
+$app->post('/sign-in', SignInController::class . ':login')->setName('sign-in');
 
 $app->get(
     '/visits',
