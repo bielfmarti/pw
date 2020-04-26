@@ -1,6 +1,9 @@
 {% extends "base.twig" %}
 
+
 {% block content %}
+
+
 
     <!doctype html>
     <html lang="en">
@@ -10,7 +13,7 @@
         <meta name="description" content="">
         <meta name="author" content="Biel Fernandez & Alex Valle">
         <meta name="generator" content="Jekyll v3.8.6">
-        <title>Signup · PwPay</title>
+        <title>Signin · PwPay</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
 
@@ -45,7 +48,7 @@
             }
         </style>
         <!-- Custom styles for this template -->
-        <link href="/assets/css/signin.css" rel="stylesheet">
+        <link href="/assets/css/signup.css" rel="stylesheet">
         <link href="/assets/css/cover.css" rel="stylesheet">
 
     </head>
@@ -60,28 +63,50 @@
                 <h3 class="masthead-brand">PwPay</h3>
                 <nav class="nav nav-masthead justify-content-center">
                     <a class="nav-link" href="/">Home</a>
-                    <a class="nav-link" href="sign-in">Sign In</a>
-                    <a class="nav-link active" href="sign-up">Sign Up</a>
+                    {% if (is_login)%}
+                        <a class="nav-link" href="sign-out">Sign Out</a>
+                    {% else %}
+                        <a class="nav-link" href="sign-in">Sign In</a>
+                        <a class="nav-link active" href="sign-up">Sign Up</a>
+                    {% endif %}
                 </nav>
             </div>
         </header>
 
 
-        <form class="form-signin">
+
+        <form class="form-signin" action="sign-up" method="POST" accept-charset="utf-8">
+
             <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <input id="inputEmail" type="email" name="email" value=" {{ oldMail }}" class="form-control" placeholder="Email address" required>
+            {{ errorMail }}
+
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <input id="inputPassword" type="password" name="password" value="{{ oldPassword }}" class="form-control" placeholder="Password">
+            {{ errorPassword }}
+
+            <label for="inputBirthday" class="sr-only">Birthday</label>
+            <input id="inputBirthday" type="date" name="birthday" value="{{ oldBirthday }}" class="form-control" placeholder="Birthday">
+            {{ errorBirthday }}
+
+            <label for="inputPhone" class="sr-only">Phone (optional)</label>
+            <input id="inputPhone" type="number" name="phone" value="{{ oldPhone }}" class="form-control" placeholder="Phone (optional)">
+            {{ errorPhone }}
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
         </form>
+
+
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>PwPay is made for study porpuses only. More on <a href=https://www.salleurl.edu/ca>LaSalle</a>, by Biel Fernandez & Alex Valle.</p>
+            </div>
+        </footer>
     </div>
     </body>
     </html>

@@ -29,7 +29,7 @@ final class RegisterController
     {
         return $this->container->get('view')->render(
             $response,
-            'sign-up.twig',
+            'signup.twig',
             []
         );
     }
@@ -335,7 +335,7 @@ final class RegisterController
 
       return $this->container->get('view')->render(
           $response,
-          'sign-up.twig',
+          'signup.twig',
           [
               'errorPassword' => $_SESSION['errorPassword'],
               'errorMail' => $_SESSION['errorMail'],
