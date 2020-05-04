@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1534c9e4-8e37-4cad-9bfe-c0aee13e9316" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/PW2_GRUPO_18.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PW2_GRUPO_18.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/landing.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/signup.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signup.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SignInController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SignInController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/signin.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signin.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,8 +40,8 @@
       <file leaf-file-name="SignInController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/SignInController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1921">
-              <caret line="116" column="64" selection-start-line="116" selection-end-line="117" />
+            <state relative-caret-position="1904">
+              <caret line="115" selection-start-line="115" selection-end-line="115" />
               <folding>
                 <element signature="e#46#54#0#PHP" expanded="true" />
               </folding>
@@ -54,8 +52,8 @@
       <file leaf-file-name="RegisterController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/RegisterController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="244" column="10" selection-start-line="244" selection-start-column="10" selection-end-line="244" selection-end-column="10" />
+            <state relative-caret-position="140">
+              <caret line="243" column="10" selection-start-line="243" selection-start-column="10" selection-end-line="243" selection-end-column="10" />
               <folding>
                 <element signature="e#46#54#0#PHP" expanded="true" />
               </folding>
@@ -294,12 +292,12 @@
       <workItem from="1587395763065" duration="6401000" />
       <workItem from="1587746941680" duration="14491000" />
       <workItem from="1588181199525" duration="2663000" />
-      <workItem from="1588607470389" duration="758000" />
+      <workItem from="1588607470389" duration="1169000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31979000" />
+    <option name="totallyTimeSpent" value="32390000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -621,8 +619,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/SignInController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1921">
-          <caret line="116" column="64" selection-start-line="116" selection-end-line="117" />
+        <state relative-caret-position="1904">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
           <folding>
             <element signature="e#46#54#0#PHP" expanded="true" />
           </folding>
@@ -645,8 +643,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/RegisterController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="244" column="10" selection-start-line="244" selection-start-column="10" selection-end-line="244" selection-end-column="10" />
+        <state relative-caret-position="140">
+          <caret line="243" column="10" selection-start-line="243" selection-start-column="10" selection-end-line="243" selection-end-column="10" />
           <folding>
             <element signature="e#46#54#0#PHP" expanded="true" />
           </folding>

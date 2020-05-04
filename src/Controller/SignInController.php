@@ -25,6 +25,7 @@ final class SignInController
             $response,
             'signin.twig',
             [
+              'status' => "Please Sign In",
                 'is_login' => isset($_SESSION['is_login']),
                 ]
         );
@@ -40,7 +41,7 @@ final class SignInController
     public function login(Request $request, Response $response): Response
     {
 
-
+        $success = "Please Sign In";
         $error = "";
         $valid = true;
 
@@ -114,58 +115,48 @@ final class SignInController
         if($valid == true){
 
 
-            $connection = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
+          try {
+
+              $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+              $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+              $statement = $db->query("SELECT USER.id FROM USER WHERE email LIKE '$email' AND password LIKE '$password' AND verified = true" );
+              $statement->execute();
+              $info = $statement->fetch();
+
+              if(!empty($info)) {
+
+                  $error = "WELCOME " . $email . "!";
+
+                  $_SESSION['login'] = $email;
+                  $_SESSION['is_login'] = true;
+                  $success = "You are now logged in";
+
+              }else{
+
+                  $error = "Error, try again";
+                  $success = "Please Sign In";
+              }
 
 
-            $sql = "SELECT id, email, password, verified FROM USER ";
+            } catch (Exception $e) {
 
-            $statement = $connection->query($sql);
-
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-            $bool = false;
-
-            foreach ($result as $a){
-                if (in_array($email, $a)) {
-                    $bool = true;
-
-                    if($a["password"]===$password){
-
-                        if($a["verified"]){
-                            $_SESSION['login'] = $a['id'];
-                            $_SESSION['is_login'] = true;
-                            //              header("Location: search.php");
-                            //               echo $_SESSION['login'];
-                            $error = "WELCOME";
-                        }else{
-                            $error = "Error, try again";
-                        }
-
-
-                    }else{
-                        $error = "Error, try again";
-                    }
-                }
+                echo $e;
+                $success = "Please Sign In";
             }
-
-            if($bool !== true){
-                $error = "no estas a la BBDD";
-            }
-
-
-
-
 
         }else{
-            $error = "Error, try again";
+
+          $error = "Error, try again";
+          $success = "Please Sign In";
+
         }
 
         return $this->container->get('view')->render(
             $response,
             'signin.twig',
             [
+                'status' => $success,
                 'error' => $error,
                 'is_login' => isset($_SESSION['is_login']),
 
