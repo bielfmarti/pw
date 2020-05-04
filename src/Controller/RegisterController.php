@@ -37,6 +37,12 @@ final class RegisterController
     public function registerMe(Request $request, Response $response): Response
     {
 
+      $_SESSION["oldMail"] = "";
+      $_SESSION["oldPassword"] = "";
+      $_SESSION["oldPhone"] = "";
+      $_SESSION["oldBirthday"] = "";
+
+
 
       $_SESSION['error!'] = "prueba";
 
@@ -236,6 +242,8 @@ final class RegisterController
 
           try {
 
+        //      $db = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
+
               $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
               $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -251,11 +259,13 @@ final class RegisterController
 
                   try {
 
+                //      $db = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
+
                       $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
                       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-                      $statement = $db->prepare("INSERT INTO user (email, password, birthday, phone) VALUES(:mail, :pass, :birthday, :phone)");
+                      $statement = $db->prepare("INSERT INTO USER (email, password, birthday, phone) VALUES(:mail, :pass, :birthday, :phone)");
                       $filteredMail= filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                       $filteredPass = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                       $statement->bindParam(':mail', $filteredMail, PDO::PARAM_STR);
@@ -270,7 +280,7 @@ final class RegisterController
 
                       $t = bin2hex(random_bytes(10));
 
-                      $statement = $db->prepare("INSERT INTO token (id_user, token) VALUES(:id_user, :token)");
+                      $statement = $db->prepare("INSERT INTO TOKEN (id_user, token) VALUES(:id_user, :token)");
                       $statement->bindParam(':token', $t, PDO::PARAM_STR);
                       $statement->bindParam(':id_user', $info[0], PDO::PARAM_STR);
                       $statement->execute();
