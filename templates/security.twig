@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <form action="security" method="post" enctype="multipart/form-data">
+
+      Welcome to reseting your password
+      <br>
+      <br>
+      Old Password
+      <br>
+      <input id="inputPasswordOld" type="password" name="passwordOld" value="{{ oldOld }}" class="form-control" placeholder="Password">
+      <br>
+      <br>
+      New Password
+      <br>
+      <input id="inputPasswordC1" type="password" name="passwordC1" value="{{ oldC1 }}" class="form-control" placeholder="Confirm1">
+      <br>
+      <br>
+      Confirm New Password
+      <br>
+      <input id="inputPasswordC2" type="password" name="passwordC2" value="{{ oldC2 }}" class="form-control" placeholder="Confirm2">
+      <br>
+      <br>
+      {{ errorReset }}
+      <br>
+      <input type="submit" value="Update Info" name="submit">
+      <br>
+      <br>
+
+  </form>
+</body>
+</html>

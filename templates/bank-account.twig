@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+      Welcome to your bank
+      <br>
+      <br>
+
+      {% if (bankAccount)%}
+
+        Your first six digits of your IBAN: {{ sixDigits }}
+        <br>
+        <br>
+        Your current money: {{ money }}
+
+        <br>
+        <br>
+
+        Transactions:
+
+        <br>
+        <br>
+        -- LOAD MONEY --
+        <br>
+        <br>
+        <form action="bank-account/load" method="post" enctype="multipart/form-data">
+          <input id="loadMoney" type="number" name="loadMoney"  class="form-control" placeholder="Money">
+          <br>
+          {{ errorBank }}
+          <br>
+          <input type="submit" value="Load me some money" name="submit">
+        </form>
+
+      {% else %}
+        it looks like you don't have an account, try adding one. We will give you 20 euros for free when you add your account
+        <br>
+        <br>
+        Owner Name
+        <br>
+        <form action="bank-account" method="post" enctype="multipart/form-data">
+          <input id="ownername" type="text" name="ownerName"  class="form-control" placeholder="Owner Name">
+          <br>
+          <br>
+          IBN
+          <br>
+          <input id="ibn" type="text" name="ibn" class="form-control" placeholder="ibn">
+          <br>
+          <br>
+          {{ errorBank }}
+          <br>
+          <br>
+          <input type="submit" value="Add Account" name="submit">
+          <br>
+          <br>
+        </form>
+
+      {% endif %}
+
+
+
+  </form>
+</body>
+</html>

@@ -31,13 +31,6 @@ final class SignInController
         );
     }
 
-
-
-
-
-
-
-
     public function login(Request $request, Response $response): Response
     {
 
@@ -159,7 +152,6 @@ final class SignInController
                 'status' => $success,
                 'error' => $error,
                 'is_login' => isset($_SESSION['is_login']),
-
             ]
         );
     }

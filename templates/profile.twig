@@ -1,0 +1,36 @@
+
+
+<!DOCTYPE html>
+<html>
+<body>
+  <form action="profile" method="post" enctype="multipart/form-data">
+
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input id="inputEmail" type="email" name="email" value=" {{ currentMail }}" class="form-control" placeholder="Email address" required readonly>
+      <br>
+      <br>
+      <label for="inputBirthday" class="sr-only">Birthday</label>
+      <input id="inputBirthday" type="date" name="birthday" value="{{ currentBirthday }}" class="form-control" placeholder="Birthday" readonly>
+      <br>
+      <br>
+      <label for="inputPhone" class="sr-only">Phone (optional)</label>
+      <input id="inputPhone" type="number" name="phone" value="{{ currentPhone }}" class="form-control" placeholder="Phone (optional)">
+      <br>
+      {{ errorPhone }}
+      <br>
+      Select image to upload:
+      <br>
+      <br>
+      <input type="file" name="fileToUpload" id="fileToUpload">
+      <br>
+      <br>
+      {{ errorPicture }}
+      <br>
+      <br>
+      <input type="submit" value="Update Info" name="submit">
+      <br>
+      <br>
+
+  </form>
+</body>
+</html>
