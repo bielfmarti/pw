@@ -18,6 +18,7 @@ $app->post('/sign-in', SignInController::class . ':login')->setName('sign-in');
 
 $app->get('/sign-out', HomeController::class . ':signout')->setName('sign-out');
 
+
 $app->get(
     '/visits',
     VisitsController::class . ":showVisits"

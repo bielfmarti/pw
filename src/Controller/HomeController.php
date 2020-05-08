@@ -53,5 +53,15 @@ final class HomeController
     }
 
 
+    public function provaProfile(Request $request, Response $response): Response{
+
+
+        return $this->container->get('view')->render(
+            $response,
+            'profile.twig',
+            []
+        );    }
+
+
 
 }
