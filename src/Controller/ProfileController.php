@@ -23,7 +23,7 @@ final class ProfileController
 
       if(!empty($_FILES["fileToUpload"]["name"])){
 
-        $errorPicture = "Imagine uploaded!";
+        $errorPicture = "Image uploaded!";
 
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
@@ -35,21 +35,7 @@ final class ProfileController
 
               $uploadOk = 1;
 
-              if($check[0] > 400){
 
-                $errorPicture = "Imagine width too large.";
-
-                $uploadOk = 0;
-
-              }
-
-              if($check[1] > 400){
-
-                $errorPicture = "Imagine height too large. ";
-
-                $uploadOk = 0;
-
-              }
 
 
           } else {
@@ -73,16 +59,35 @@ final class ProfileController
           $errorPicture = "Sorry, only PNG & files are allowed. ";
           $uploadOk = 0;
         }
+
+
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
-          $errorPicture = "Sorry, your file was not uploaded. ";
+     //     $errorPicture = "Sorry, your file was not uploaded. ";
+
         // if everything is ok, try to upload file
-        } else {
-            $imageName = 'uploads/'.$_SESSION['login'] . '.png' ;
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $imageName)) {
-                $errorPicture = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded. ";
-            } else {
-                $errorPicture = "Sorry, there was an error uploading your file. ";
+        } else{
+
+            if($check[0] > 400 || $check[1] > 400){
+
+                $imageName = 'uploads/'.$_SESSION['login'] . '.png' ;
+                move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $imageName);
+
+                $imageFile = imagecreatefrompng($imageName);
+
+                $im2 = imagecrop($imageFile, ['x' => 0, 'y' => 0, 'width' => 400, 'height' => 400]);
+                imagepng($im2, $imageName);
+
+                $uploadOk = 2;
+
+
+            }else{
+                $imageName = 'uploads/'.$_SESSION['login'] . '.png' ;
+                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $imageName)) {
+                    $errorPicture = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded. ";
+                } else {
+                    $errorPicture = "Sorry, there was an error uploading your file. ";
+                }
             }
         }
 
@@ -96,7 +101,7 @@ final class ProfileController
         if (!(preg_match('/(\+34|0034|34)?[ -]*(8|9)[ -]*([0-9][ -]*){8}/', $phone))) //telefono
         {
 
-            $errorPhone = "Good phone";
+            $errorPhone = "";
 
             $_SESSION["errorPhone"] = $errorPhone;
 
