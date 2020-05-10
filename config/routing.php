@@ -29,7 +29,7 @@ $app->post('/profile', ProfileController::class . ":upload")->setName('profile')
 $app->get('/profile/security', SecurityController::class . ":showSecurity")->setName('security');
 $app->post('/profile/security', SecurityController::class . ":reset")->setName('security');
 
-$app->get('/summary', DashboardController::class . ":showDashboard")->setName('dashboard');
+$app->get('/account/summary', DashboardController::class . ":showDashboard")->setName('dashboard');
 
 $app->get('/account/bank-account', BankAccountController::class . ":showBankAccount")->setName('bank-account');
 $app->post('/account/bank-account', BankAccountController::class . ":addAccount")->setName('bank-account');

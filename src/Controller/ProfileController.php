@@ -35,9 +35,6 @@ final class ProfileController
 
               $uploadOk = 1;
 
-
-
-
           } else {
               $errorPicture = "File is not an image. <br>  <br>";
               $uploadOk = 0;
@@ -105,7 +102,7 @@ final class ProfileController
 
             $_SESSION["errorPhone"] = $errorPhone;
 
-            $db = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
+            $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
      //       $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -116,7 +113,9 @@ final class ProfileController
             $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
             $statement->execute();
 
+            $errorPhone = "-- Number updated! --";
 
+            $_SESSION["errorPhone"] = $errorPhone;
 
         }else{
 
@@ -159,7 +158,7 @@ final class ProfileController
 
         $email = $_SESSION['login'];
 
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
      //   $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -211,7 +210,7 @@ final class ProfileController
 
           $email = $_SESSION['login'];
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
      //     $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

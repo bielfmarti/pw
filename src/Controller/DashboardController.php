@@ -31,7 +31,7 @@ final class DashboardController
 
           $email = $_SESSION['login'];
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
 
 //          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
@@ -44,19 +44,23 @@ final class DashboardController
           $money = $info[0];
           $id = $info[1];
 
-          $statement = $db->query("SELECT TRANSACTION.id_sender, TRANSACTION.id_reciever, TRANSACTION.money, TRANSACTION.type FROM TRANSACTION WHERE id_sender LIKE '$id' OR id_reciever LIKE '$id' LIMIT 5" );
+          $statement = $db->query("SELECT TRANSACTION.id_sender, TRANSACTION.id_reciever, TRANSACTION.money, TRANSACTION.type FROM TRANSACTION WHERE id_sender LIKE '$id' OR id_reciever LIKE '$id' ORDER BY id DESC LIMIT 5" );
           $statement->execute();
-          $info = $statement->fetch();
+          $info = $statement->fetchAll();
 
           $i = 0;
           $arg = "";
 
-          while (!empty($info[$i])) {
-              $arg = $arg . "Id of the sender: " . $info[$i] . '\n';
-              $arg = $arg . "Id of the reciever: " . $info[$i+1];
-              $arg = $arg . "Money: " . $info[$i+2];
-              $arg = $arg . "Type: " . $info[$i+3];
-              $i = $i+4;
+
+          while (!empty($info[$i][0])) {
+              $arg = $arg . "---------------Id of the sender: " . $info[$i][0];
+              $arg = $arg . " | Id of the reciever: " . $info[$i][1];
+              $arg = $arg . " | Money: " . $info[$i][2];
+              $arg = $arg . " | Type: " . $info[$i][3]. "---------------";
+
+
+              $i++;
+
           }
 
           return $this->container->get('view')->render(

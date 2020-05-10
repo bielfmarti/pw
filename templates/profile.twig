@@ -64,7 +64,7 @@
                 <nav class="nav nav-masthead justify-content-center">
                     <a class="nav-link" href="/">Home</a>
                     {% if (is_login)%}
-                        <a class="nav-link" href="summary">Dashboard</a>
+                        <a class="nav-link" href="account/summary">Dashboard</a>
                         <a class="nav-link" href="account/bank-account">Bank Account</a>
                         <a class="nav-link active" href="profile">Profile</a>
                         <a class="nav-link" href="sign-out">Sign Out</a>
@@ -79,7 +79,11 @@
 
         <div id="foto">
             {{ welcome }}
+            <br>
+            <br>
             <img {{ foto }} />
+            <br>
+            NOTE: image might take a while to update
         </div>
 
 
@@ -101,8 +105,9 @@
              <br>
             {% endif %}
 
-
-            <a type="submit"  href="profile/security">Change password</a>
+            <br>
+            <br>
+            <a type="submit"  href="profile/security"> <b>CLICK HERE TO CHANGE PASSWORD </b></a>
             <br>
             <br>
 
@@ -136,7 +141,3 @@
     </body>
     </html>
 {% endblock %}
-
-
-
-
