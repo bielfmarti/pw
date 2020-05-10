@@ -33,9 +33,9 @@ final class BankAccountController
           $bankAccount = false;
 
           $email = $_SESSION['login'];
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+    //      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
 
-          //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           $statement = $db->query("SELECT USER.ibn FROM USER WHERE email LIKE '$email'" );
@@ -147,6 +147,8 @@ final class BankAccountController
 
       if($errorValidation == false){
 
+        // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+
         $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement = $db->prepare("UPDATE USER SET USER.owner_name = :ownerName WHERE email LIKE '$email'"); //FEM QUE EL TOKEN ESTIGUI COM UTILITZAT
@@ -193,10 +195,9 @@ final class BankAccountController
 
           $email = $_SESSION['login'];
 
+      //    $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+
           $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
-
-
-      //    $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           $statement = $db->query("SELECT USER.ibn FROM USER WHERE email LIKE '$email'" );
