@@ -1,0 +1,139 @@
+{% extends "base.twig" %}
+
+
+{% block content %}
+
+
+
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Biel Fernandez & Alex Valle">
+        <meta name="generator" content="Jekyll v3.8.6">
+        <title>Signin · PwPay</title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
+
+        <!-- Bootstrap core CSS -->
+        <link href="https://getbootstrap.com/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!-- Favicons -->
+        <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+        <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+        <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+        <link rel="manifest" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/manifest.json">
+        <link rel="mask-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+        <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon.ico">
+        <meta name="msapplication-config" content="https://getbootst/assets/css/rap.com/docs/4.4/assets/img/favicons/browserconfig.xml">
+        <meta name="theme-color" content="#563d7c">
+
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+        <!-- Custom styles for this template -->
+        <link href="/assets/css/profile.css" rel="stylesheet">
+        <link href="/assets/css/cover.css" rel="stylesheet">
+
+    </head>
+
+
+
+    <body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">PwPay</h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link" href="/">Home</a>
+                    {% if (is_login)%}
+                        <a class="nav-link" href="summary">Dashboard</a>
+                        <a class="nav-link" href="account/bank-account">Bank Account</a>
+                        <a class="nav-link active" href="profile">Profile</a>
+                        <a class="nav-link" href="sign-out">Sign Out</a>
+                    {% else %}
+                        <a class="nav-link" href="sign-in">Sign In</a>
+                        <a class="nav-link" href="sign-up">Sign Up</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+
+
+        <div id="foto">
+            {{ welcome }}
+            <img {{ foto }} />
+        </div>
+
+
+        <form class="form-signin" action="profile" method="post" enctype="multipart/form-data">
+
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input id="inputEmail" type="email" name="email" value=" {{ currentMail }}" class="form-control" placeholder="Email address" required readonly>
+
+            <label for="inputBirthday" class="sr-only">Birthday</label>
+            <input id="inputBirthday" type="date" name="birthday" value="{{ currentBirthday }}" class="form-control" placeholder="Birthday" readonly>
+
+            <label for="inputPhone" class="sr-only">Phone (optional)</label>
+            <input id="inputPhone" type="number" name="phone" value="{{ currentPhone }}" class="form-control" placeholder="Phone (optional)">
+
+            <br>
+
+            {% if (errorPhone != "") %}
+            {{ errorPhone }}
+             <br>
+            {% endif %}
+
+
+            <a type="submit"  href="profile/security">Change password</a>
+            <br>
+            <br>
+
+            Select image to upload:
+            <br>
+            <br>
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <br>
+
+            {% if (errorPicture != "") %}
+                <br>
+                {{ errorPicture }}
+                <br>
+            {% endif %}
+
+
+            <br>
+            <input type="submit" value="Update Info" name="submit">
+            <br>
+
+        </form>
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>PwPay is made for study porpuses only. More on <a href=https://www.salleurl.edu/ca>LaSalle</a>, by Biel Fernandez & Alex Valle.</p>
+            </div>
+        </footer>
+    </div>
+    </body>
+    </html>
+{% endblock %}
+
+
+
+

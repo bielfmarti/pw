@@ -31,13 +31,6 @@ final class SignInController
         );
     }
 
-
-
-
-
-
-
-
     public function login(Request $request, Response $response): Response
     {
 
@@ -117,7 +110,9 @@ final class SignInController
 
           try {
 
-              $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+              $db = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
+
+             // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
               $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
               $statement = $db->query("SELECT USER.id FROM USER WHERE email LIKE '$email' AND password LIKE '$password' AND verified = true" );
@@ -131,6 +126,9 @@ final class SignInController
                   $_SESSION['login'] = $email;
                   $_SESSION['is_login'] = true;
                   $success = "You are now logged in";
+
+                  header("Location: /");
+
 
               }else{
 
@@ -159,7 +157,6 @@ final class SignInController
                 'status' => $success,
                 'error' => $error,
                 'is_login' => isset($_SESSION['is_login']),
-
             ]
         );
     }
