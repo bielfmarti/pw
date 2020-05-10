@@ -24,14 +24,18 @@ final class BankAccountController
 
       $sixDigits = "";
       $money = "";
+      $bankAccount = "";
+      $moneyAdded = "";
+      $errorBank = "";
 
       if(!empty($_SESSION['login'])) {
 
           $bankAccount = false;
 
           $email = $_SESSION['login'];
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', "homestead", 'secret');
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+          //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           $statement = $db->query("SELECT USER.ibn FROM USER WHERE email LIKE '$email'" );

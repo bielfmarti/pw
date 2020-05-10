@@ -2,31 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1534c9e4-8e37-4cad-9bfe-c0aee13e9316" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/public/CustomName.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/alex96@salle.url.edu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/b2113@salle.url.edu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/nopic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/BankAccountController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/bank-account.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dashboard.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/profile.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/security.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PW2_GRUPO_18.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PW2_GRUPO_18.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routing.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/routing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/validateRegister.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SignInController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SignInController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/landing.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/landing.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/visits.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/visits.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/txt_taules_pwpay.txt" beforeDir="false" afterPath="$PROJECT_DIR$/txt_taules_pwpay.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/BankAccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BankAccountController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -75,11 +52,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dashboard.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/dashboard.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="415">
               <caret line="83" column="70" selection-start-line="83" selection-start-column="70" selection-end-line="83" selection-end-column="70" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BankAccountController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Controller/BankAccountController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegisterController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/RegisterController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="411">
+              <caret line="243" column="90" lean-forward="true" selection-start-line="243" selection-start-column="16" selection-end-line="243" selection-end-column="90" />
+              <folding>
+                <element signature="e#46#54#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -147,11 +145,11 @@
         <option value="$PROJECT_DIR$/templates/security.twig" />
         <option value="$PROJECT_DIR$/config/routing.php" />
         <option value="$PROJECT_DIR$/public/assets/css/bank.css" />
-        <option value="$PROJECT_DIR$/src/Controller/BankAccountController.php" />
         <option value="$PROJECT_DIR$/templates/profile.twig" />
         <option value="$PROJECT_DIR$/templates/landing.twig" />
         <option value="$PROJECT_DIR$/templates/bank-account.twig" />
         <option value="$PROJECT_DIR$/templates/dashboard.twig" />
+        <option value="$PROJECT_DIR$/src/Controller/BankAccountController.php" />
       </list>
     </option>
   </component>
@@ -308,12 +306,12 @@
       <workItem from="1587746941680" duration="14491000" />
       <workItem from="1588181199525" duration="2663000" />
       <workItem from="1588607470389" duration="1625000" />
-      <workItem from="1589046787913" duration="11381000" />
+      <workItem from="1589046787913" duration="11738000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44227000" />
+    <option name="totallyTimeSpent" value="44584000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -470,16 +468,6 @@
     <entry file="file://$PROJECT_DIR$/templates/auth.twig">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/RegisterController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="243" column="35" selection-start-line="243" selection-start-column="35" selection-end-line="243" selection-end-column="35" />
-          <folding>
-            <element signature="e#46#54#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/home.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -578,13 +566,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/BankAccountController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="27" column="6" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/uploads/nopic.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -641,6 +622,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="415">
           <caret line="83" column="70" selection-start-line="83" selection-start-column="70" selection-end-line="83" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/RegisterController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="243" column="90" lean-forward="true" selection-start-line="243" selection-start-column="16" selection-end-line="243" selection-end-column="90" />
+          <folding>
+            <element signature="e#46#54#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/BankAccountController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
         </state>
       </provider>
     </entry>
