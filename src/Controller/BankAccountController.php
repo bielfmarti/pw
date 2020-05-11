@@ -84,11 +84,16 @@ final class BankAccountController
                 $statement->bindParam(':type', $type, PDO::PARAM_STR);
                 $statement->execute();
 
+
+                header("Location: /account/bank-account");
+
               }
 
           }else{
 
               $bankAccount = false;
+              header("Location: /account/bank-account");
+
           }
 
           return $this->container->get('view')->render(
