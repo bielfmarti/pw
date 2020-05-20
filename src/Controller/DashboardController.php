@@ -31,7 +31,7 @@ final class DashboardController
 
           $email = $_SESSION['login'];
 
-          //     $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+          //     $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
 
           $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
@@ -70,6 +70,7 @@ final class DashboardController
                 'is_login' => isset($_SESSION['is_login']),
                 'money' => $money,
                 'transactions' => $arg,
+                'success' => "",
 
               ]
           );

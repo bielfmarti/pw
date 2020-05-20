@@ -110,7 +110,7 @@ final class SignInController
 
           try {
 
-              $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+              $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
           //    $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
               $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

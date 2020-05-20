@@ -1,0 +1,134 @@
+{% extends "base.twig" %}
+
+
+{% block content %}
+
+
+
+  <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Biel Fernandez & Alex Valle">
+    <meta name="generator" content="Jekyll v3.8.6">
+    <title>Signin · PwPay</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon.ico">
+    <meta name="msapplication-config" content="https://getbootst/assets/css/rap.com/docs/4.4/assets/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#563d7c">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/assets/css/bank.css" rel="stylesheet">
+    <link href="/assets/css/cover.css" rel="stylesheet">
+
+  </head>
+
+
+
+  <body class="text-center">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand">PwPay</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link" href="/">Home</a>
+            {% if (is_login)%}
+                <a class="nav-link" href="/account/summary">Dashboard</a>
+                <a class="nav-link active" href="/account/bank-account">Bank Account</a>
+                <a class="nav-link" href="/profile">Profile</a>
+                <a class="nav-link" href="/sign-out">Sign Out</a>
+            {% else %}
+              <a class="nav-link active" href="sign-in">Sign In</a>
+              <a class="nav-link" href="sign-up">Sign Up</a>
+            {% endif %}
+        </nav>
+      </div>
+    </header>
+
+
+      <br>
+      <br>
+    <h1 class="h3 mb-3 font-weight-normal">Welcome to your bank</h1>
+
+      <br>
+    <br>
+
+      {% if (bankAccount)%}
+
+        Your first six digits of your IBAN: {{ sixDigits }}
+        <br>
+        <br>
+        Your current money: {{ money }}
+
+        <br>
+        <br>
+
+        Transactions:
+
+        <br>
+        <br>
+        -- REQUEST MONEY --
+        <br>
+        <br>
+        <form class="form-bank" action="/account/money/requests" method="post" enctype="multipart/form-data">
+          <input id="requestMoneyTo" type="email" name="requestMoneyTo"  class="form-control" placeholder="To who you wanna request money?" required>
+          <br>
+          <input id="requestMoney" type="number" name="requestMoney" class="form-control" placeholder="Money" required>
+          <br>
+            {{ errorBank }}
+          <br>
+          <input type="submit" value="Request some money" name="submit">
+        </form>
+
+      {% else %}
+        <br>
+        <p>It looks like you don't have an account, try adding one first. </p>
+        <br>
+
+      {% endif %}
+
+
+
+    </form>
+
+
+    <footer class="mastfoot mt-auto">
+      <div class="inner">
+        <p>PwPay is made for study porpuses only. More on <a href=https://www.salleurl.edu/ca>LaSalle</a>, by Biel Fernandez & Alex Valle.</p>
+      </div>
+    </footer>
+  </div>
+  </body>
+  </html>
+{% endblock %}

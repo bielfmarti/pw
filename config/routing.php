@@ -9,6 +9,9 @@ use \SallePW\SlimApp\Controller\ProfileController;
 use \SallePW\SlimApp\Controller\SecurityController;
 use \SallePW\SlimApp\Controller\BankAccountController;
 use \SallePW\SlimApp\Controller\DashboardController;
+use \SallePW\SlimApp\Controller\SendMoneyController;
+use \SallePW\SlimApp\Controller\RequestMoneyController;
+use \SallePW\SlimApp\Controller\TransactionsController;
 use \SallePW\SlimApp\Middleware\StartSessionMiddleware;
 
 
@@ -34,6 +37,16 @@ $app->get('/account/summary', DashboardController::class . ":showDashboard")->se
 $app->get('/account/bank-account', BankAccountController::class . ":showBankAccount")->setName('bank-account');
 $app->post('/account/bank-account', BankAccountController::class . ":addAccount")->setName('bank-account');
 $app->post('/account/bank-account/load', BankAccountController::class . ":loadMoney")->setName('load');
+
+$app->get('/account/money/send', SendMoneyController::class . ":showSendMoney")->setName('send-money');
+$app->post('/account/money/send', SendMoneyController::class . ":sendMoney")->setName('send-money');
+
+$app->get('/account/money/requests', RequestMoneyController::class . ":showRequestMoney")->setName('request-money');
+$app->get('/account/money/requests/pending', RequestMoneyController::class . ":showPending")->setName('request-money');
+$app->post('/account/money/requests', RequestMoneyController::class . ":requestMoney")->setName('request-money');
+$app->get('/account/money/requests/{id}/accept', RequestMoneyController::class . ":accept")->setName('request-money');
+
+$app->get('/account/transactions', TransactionsController::class . ":showTransactions")->setName('transactions');
 
 $app->get(
     '/visits',
