@@ -46,33 +46,29 @@ final class TransactionsController
 
         $i = 0;
 
-        $message = "";
+        $message[] = 0;
 
         while (!empty($info[$i][0])) {
 
+
             if($info[$i][0] == "load"){
 
-              $message .= "-You loaded " . $info[$i][3] . "$";
-              $message .= " | ";
-
+              $message[$i] = "-You loaded " . $info[$i][3] . "$";
             }
 
             if($info[$i][0] == "send"){
 
-              $message .= "-You sent " . $info[$i][3]. "$ to " . $info[$i][2];
-              $message .= " | ";
+              $message[$i] = "-You sent " . $info[$i][3]. "$ to " . $info[$i][2];
             }
 
             if($info[$i][0] == "acceptedRequest" && $info[$i][1] == $userId){
 
-              $message .= "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she accepted";
-              $message .= " | ";
+              $message[$i] = "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she accepted";
             }
 
             if($info[$i][0] == "pendingRequest" && $info[$i][1] == $userId){
 
-              $message .= "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she hasn't accepted yet";
-              $message .= " | ";
+              $message[$i] = "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she hasn't accepted yet";
             }
 
             $i++;
@@ -85,6 +81,7 @@ final class TransactionsController
             [
                 'is_login' => isset($_SESSION['is_login']),
                 'message' => $message,
+                'i' => $i,
             ]
         );
 

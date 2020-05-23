@@ -49,14 +49,15 @@ final class DashboardController
           $info = $statement->fetchAll();
 
           $i = 0;
-          $arg = "";
+          $arg[] = 0;
 
 
           while (!empty($info[$i][0])) {
-              $arg = $arg . "---------------Id of the sender: " . $info[$i][0];
-              $arg = $arg . " | Id of the reciever: " . $info[$i][1];
-              $arg = $arg . " | Money: " . $info[$i][2];
-              $arg = $arg . " | Type: " . $info[$i][3]. "---------------";
+              $arg[$i] = "";
+              $arg[$i] .= "Id of the sender: " . $info[$i][0];
+              $arg[$i] .= " | Id of the reciever: " . $info[$i][1];
+              $arg[$i] .= " | Money: " . $info[$i][2];
+              $arg[$i] .= " | Type: " . $info[$i][3];
 
 
               $i++;
@@ -69,7 +70,8 @@ final class DashboardController
               [
                 'is_login' => isset($_SESSION['is_login']),
                 'money' => $money,
-                'transactions' => $arg,
+                'message' => $arg,
+                'i' => $i,
                 'success' => "",
 
               ]

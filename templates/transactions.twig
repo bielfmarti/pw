@@ -95,11 +95,18 @@
     <h4>Here you can check your latest transictions</h4>
     <br>
     <br>
-    {% if  message == "" %}
+
+    {% if  i<1 %}
         <p>Oops, seems that you have not made any transiction yet</p>
 
     {% else %}
-        {{ message }}
+
+        {% for j in 0..(i)-1 %}
+            {% if message[j]!="" %}
+                {{ message[j] }}
+                <br>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 
 

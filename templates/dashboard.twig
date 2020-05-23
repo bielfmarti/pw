@@ -105,8 +105,20 @@
                   <p class="h4 mb-3 font-weight-normal">Your latest transactions:</p>
                   <br>
                   <br>
-                  {{transactions}}
 
+
+                {% if  i<1 %}
+                    <p>Oops, seems that you have not made any transiction yet</p>
+
+                {% else %}
+
+                    {% for j in 0..(i)-1 %}
+                        {% if message[j]!="" %}
+                            {{ message[j] }}
+                            <br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div>
 
 
