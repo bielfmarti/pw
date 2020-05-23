@@ -46,31 +46,33 @@ final class TransactionsController
 
         $i = 0;
 
+        $message = "";
+
         while (!empty($info[$i][0])) {
 
             if($info[$i][0] == "load"){
 
-              echo "-You loaded " . $info[$i][3] . "$";
-              echo " | ";
+              $message .= "-You loaded " . $info[$i][3] . "$";
+              $message .= " | ";
 
             }
 
             if($info[$i][0] == "send"){
 
-              echo "-You sent " . $info[$i][3]. "$ to " . $info[$i][2];
-              echo " | ";
+              $message .= "-You sent " . $info[$i][3]. "$ to " . $info[$i][2];
+              $message .= " | ";
             }
 
             if($info[$i][0] == "acceptedRequest" && $info[$i][1] == $userId){
 
-              echo "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she accepted";
-              echo " | ";
+              $message .= "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she accepted";
+              $message .= " | ";
             }
 
             if($info[$i][0] == "pendingRequest" && $info[$i][1] == $userId){
 
-              echo "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she hasn't accepted yet";
-              echo " | ";
+              $message .= "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she hasn't accepted yet";
+              $message .= " | ";
             }
 
             $i++;
@@ -82,6 +84,7 @@ final class TransactionsController
             'transactions.twig',
             [
                 'is_login' => isset($_SESSION['is_login']),
+                'message' => $message,
             ]
         );
 

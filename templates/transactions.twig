@@ -91,18 +91,16 @@
     </header>
 
 
-      <br>
-      <br>
-
-
-      <br>
+    <h2>WELCOME</h2>
+    <h4>Here you can check your latest transictions</h4>
     <br>
+    <br>
+    {% if  message == "" %}
+        <p>Oops, seems that you have not made any transiction yet</p>
 
-
-
-
-
-    </form>
+    {% else %}
+        {{ message }}
+    {% endif %}
 
 
     <footer class="mastfoot mt-auto">

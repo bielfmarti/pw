@@ -112,10 +112,12 @@ final class RequestMoneyController
         $statement = $db->query("SELECT TRANSACTION.id, TRANSACTION.money, TRANSACTION.id_sender FROM TRANSACTION WHERE TRANSACTION.id = '$dummy' AND id_reciever LIKE '$idUser' AND type LIKE 'pendingRequest'" );
         $statement->execute();
         $info = $statement->fetch();
+        $error = "";
+
 
         if(empty($info[0])){//not found
 
-          echo "Request not found";
+          $error = "You don't have any request  😉 ";
 
           return $this->container->get('view')->render(
 
@@ -125,6 +127,7 @@ final class RequestMoneyController
               [
                 'is_login' => isset($_SESSION['is_login']),
                 'bankAccount' => isset($_SESSION['bankAccount']),
+                'error' => $error,
               ]
           );
 
@@ -163,20 +166,21 @@ final class RequestMoneyController
             $statement->bindParam(':transaction', $acceptedRequest, PDO::PARAM_STR);
             $statement->execute();
 
-            echo "Request accepted and money sent";
+            $error = "Request accepted and money sent";
 
             return $this->container->get('view')->render(
                 $response,
                 'pending.twig',
                 [
                   'is_login' => isset($_SESSION['is_login']),
-                  'bankAccount' => isset($_SESSION['bankAccount']),
+                  'error' => $error,
+
                 ]
             );
 
           }else{
 
-            echo "not enough money";
+            $error =  "not enough money";
 
             return $this->container->get('view')->render(
                 $response,
@@ -184,6 +188,7 @@ final class RequestMoneyController
                 [
                   'is_login' => isset($_SESSION['is_login']),
                   'bankAccount' => isset($_SESSION['bankAccount']),
+                  'error' => $error,
                 ]
             );
 
@@ -229,18 +234,21 @@ final class RequestMoneyController
         $statement->execute();
         $info = $statement->fetchAll();
 
+        $error = "";
+        $req[] = 0;
+        $req_id[] = 0;
         $i = 0;
         if(empty($info[0][0])){
 
-          echo "no requests found";
+          $error = "You don't have any request  😉 ";
 
         }
 
         while (!empty($info[$i][0])) {
 
-            echo "<p style='justify-content: center'>Id of the sender: " . $info[$i][0] . " | Money: " . $info[$i][1] . " | To accept --> " . '<a  href=/account/money/requests/' . $info[$i][2] . '/accept> Click here to accept request</a></p>';
-            echo "<br>";
-            echo "<br>";
+            $req[$i] = "Id of the sender: " . $info[$i][0] . " | Money: " . $info[$i][1];
+            $req_id[$i] = '/account/money/requests/' . $info[$i][2] . '/accept';
+
             $i++;
 
         }
@@ -254,6 +262,10 @@ final class RequestMoneyController
               'bankAccount' => isset($_SESSION['bankAccount']),
               'sixDigits' => "",
               'errorBank' => "",
+              'request' => $req,
+              'req_id' => $req_id,
+              'i' => $i,
+              'error' => $error,
             ]
         );
 
