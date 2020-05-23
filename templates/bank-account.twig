@@ -29,6 +29,9 @@
     <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon.ico">
     <meta name="msapplication-config" content="https://getbootst/assets/css/rap.com/docs/4.4/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#563d7c">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
     <style>
@@ -65,7 +68,18 @@
           <a class="nav-link" href="/">Home</a>
             {% if (is_login)%}
                 <a class="nav-link" href="/account/summary">Dashboard</a>
-                <a class="nav-link active" href="/account/bank-account">Bank Account</a>
+
+                <div class="dropdown">
+                    <a type="button" class="btn btn-default dropdown-toggle nav-link active" data-toggle="dropdown"> Bank Account <div class="caret"></div>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link active" href="/account/bank-account">Load Money</a> </li>
+                        <li><a class="nav-link" href="/account/money/requests">Request Money</a> </li>
+                        <li><a class="nav-link" href="/account/money/send">Send Money</a> </li>
+                        <li><a class="nav-link" href="/account/transactions">Transactions</a> </li>
+                    </ul>
+                </div>
+
                 <a class="nav-link" href="/profile">Profile</a>
                 <a class="nav-link" href="/sign-out">Sign Out</a>
             {% else %}
@@ -99,9 +113,11 @@
         <br>
         <br>
         -- LOAD MONEY --
+
+
         <br>
         <br>
-        <form class="form-bank" action="bank-account/load" method="post" enctype="multipart/form-data">
+        <form class="form-bank" action="/account/bank-account/load" method="post" enctype="multipart/form-data">
           <input id="loadMoney" type="number" name="loadMoney"  class="form-control" placeholder="Money">
           <br>
             {{ errorBank }}

@@ -32,7 +32,9 @@ final class AuthController
 
           // TOKEN EXISTEIX??
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+         // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           $statement = $db->query("SELECT TOKEN.id FROM TOKEN WHERE TOKEN.token LIKE '$insertedToken'" );

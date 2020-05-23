@@ -33,9 +33,9 @@ final class BankAccountController
           $bankAccount = false;
 
           $email = $_SESSION['login'];
-    //      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+        //  $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           $statement = $db->query("SELECT USER.ibn FROM USER WHERE email LIKE '$email'" );
@@ -74,7 +74,7 @@ final class BankAccountController
                 $statement->execute();
                 $info = $statement->fetch();
 
-                $statement = $db->prepare("INSERT INTO transaction (id_sender, id_reciever, money, type) VALUES(:id_sender, :id_reciever, :money, :type)");
+                $statement = $db->prepare("INSERT INTO TRANSACTION (id_sender, id_reciever, money, type) VALUES(:id_sender, :id_reciever, :money, :type)");
 
                 $type = "load";
 
@@ -152,9 +152,9 @@ final class BankAccountController
 
       if($errorValidation == false){
 
-        // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+        //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement = $db->prepare("UPDATE USER SET USER.owner_name = :ownerName WHERE email LIKE '$email'"); //FEM QUE EL TOKEN ESTIGUI COM UTILITZAT
         $statement->bindParam(':ownerName', $_POST['ownerName'], PDO::PARAM_STR);
@@ -173,6 +173,9 @@ final class BankAccountController
 
         $money = $info[0];
 
+      }else{
+       //   header("Location: /account/bank-account");
+          $bankAccount = 0;
       }
 
       return $this->container->get('view')->render(
@@ -200,9 +203,9 @@ final class BankAccountController
 
           $email = $_SESSION['login'];
 
-      //    $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+          //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
           $statement = $db->query("SELECT USER.ibn FROM USER WHERE email LIKE '$email'" );

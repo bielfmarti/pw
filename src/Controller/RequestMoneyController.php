@@ -28,7 +28,9 @@ final class RequestMoneyController
       $requestMoneyTo = $_POST['requestMoneyTo'];
       $requestMoney = $_POST['requestMoney'];
 
-      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+      //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
@@ -63,7 +65,7 @@ final class RequestMoneyController
 
         $type = "pendingRequest";
 
-        $statement = $db->prepare("INSERT INTO transaction (id_sender, id_reciever, money, type) VALUES(:id_sender, :id_reciever, :money, :type)");
+        $statement = $db->prepare("INSERT INTO TRANSACTION (id_sender, id_reciever, money, type) VALUES(:id_sender, :id_reciever, :money, :type)");
         $statement->bindParam(':id_sender', $idSender, PDO::PARAM_STR);
         $statement->bindParam(':id_reciever', $info[0], PDO::PARAM_STR);
         $statement->bindParam(':money', $requestMoney, PDO::PARAM_STR);
@@ -95,8 +97,9 @@ final class RequestMoneyController
       if(!empty($_SESSION['login'])) {
 
         $email = $_SESSION['login'];
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+       // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $statement = $db->query("SELECT USER.id FROM USER WHERE email LIKE '$email'" );
@@ -211,10 +214,9 @@ final class RequestMoneyController
 
         $email = $_SESSION['login'];
 
-        //     $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+        //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
-
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $statement = $db->query("SELECT USER.id FROM USER WHERE email LIKE '$email'" );
@@ -276,34 +278,38 @@ final class RequestMoneyController
 
         $email = $_SESSION['login'];
 
-        //     $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+     //   $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
-
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $statement = $db->query("SELECT USER.ibn FROM USER WHERE email LIKE '$email'" );
         $statement->execute();
         $info = $statement->fetch();
 
-        $iban2 = $info[0];
 
-        $sixDigits = $iban2[0] . $iban2[1] . $iban2[2] . $iban2[3] . $iban2[4] . $iban2[5];
-
-        $statement = $db->query("SELECT USER.money FROM USER WHERE email LIKE '$email'" );
-        $statement->execute();
-        $info = $statement->fetch();
-
-        $money = $info[0];
 
         if(!empty($info[0])) {
 
           $bankAccount = true;
 
+          $iban2 = $info[0];
+
+          $sixDigits = $iban2[0] . $iban2[1] . $iban2[2] . $iban2[3] . $iban2[4] . $iban2[5];
+
+          $statement = $db->query("SELECT USER.money FROM USER WHERE email LIKE '$email'" );
+          $statement->execute();
+          $info = $statement->fetch();
+
+          $money = $info[0];
+
+
         }else{
 
           $bankAccount = false;
           $money = 0;
+
+          header("Location: /account/bank-account");
 
         }
 
