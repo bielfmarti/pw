@@ -28,7 +28,7 @@ final class RequestMoneyController
       $requestMoneyTo = $_POST['requestMoneyTo'];
       $requestMoney = $_POST['requestMoney'];
 
-      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
       //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -53,7 +53,8 @@ final class RequestMoneyController
             'request-money.twig',
             [
               'is_login' => isset($_SESSION['is_login']),
-              'money' => isset($_SESSION['money']),
+              'money' => $_SESSION['money'],
+              'sixDigits' => $_SESSION['sixDigits'],
               'bankAccount' => isset($_SESSION['bankAccount']),
               'errorBank' => "User not found",
             ]
@@ -79,7 +80,8 @@ final class RequestMoneyController
             'dashboard.twig',
             [
               'is_login' => isset($_SESSION['is_login']),
-              'money' => "",
+              'money' => $_SESSION['money'],
+              'sixDigits' => $_SESSION['sixDigits'],
               'transactions' => "",
               'success' => $success,
             ]
@@ -97,7 +99,7 @@ final class RequestMoneyController
       if(!empty($_SESSION['login'])) {
 
         $email = $_SESSION['login'];
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
        // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -128,6 +130,8 @@ final class RequestMoneyController
                 'is_login' => isset($_SESSION['is_login']),
                 'bankAccount' => isset($_SESSION['bankAccount']),
                 'error' => $error,
+                'money' => $_SESSION['money'],
+                'sixDigits' => $_SESSION['sixDigits'],
               ]
           );
 
@@ -174,6 +178,8 @@ final class RequestMoneyController
                 [
                   'is_login' => isset($_SESSION['is_login']),
                   'error' => $error,
+                  'money' => $_SESSION['money'],
+                  'sixDigits' => $_SESSION['sixDigits'],
 
                 ]
             );
@@ -189,6 +195,8 @@ final class RequestMoneyController
                   'is_login' => isset($_SESSION['is_login']),
                   'bankAccount' => isset($_SESSION['bankAccount']),
                   'error' => $error,
+                  'money' => $_SESSION['money'],
+                  'sixDigits' => $_SESSION['sixDigits'],
                 ]
             );
 
@@ -219,7 +227,7 @@ final class RequestMoneyController
 
         $email = $_SESSION['login'];
 
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -258,9 +266,9 @@ final class RequestMoneyController
             'pending.twig',
             [
               'is_login' => isset($_SESSION['is_login']),
-              'money' => "",
+              'money' => $_SESSION['money'],
+              'sixDigits' => $_SESSION['sixDigits'],
               'bankAccount' => isset($_SESSION['bankAccount']),
-              'sixDigits' => "",
               'errorBank' => "",
               'request' => $req,
               'req_id' => $req_id,
@@ -290,7 +298,7 @@ final class RequestMoneyController
 
         $email = $_SESSION['login'];
 
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
      //   $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -327,14 +335,16 @@ final class RequestMoneyController
 
         $_SESSION['bankAccount'] = $bankAccount;
         $_SESSION['money'] = $money;
+        $_SESSION['sixDigits'] = $sixDigits;
+
 
           return $this->container->get('view')->render(
               $response,
               'request-money.twig',
               [
-                'is_login' => isset($_SESSION['is_login']),
+                'is_login' => $_SESSION['is_login'],
                 'money' => $money,
-                'bankAccount' => isset($_SESSION['bankAccount']),
+                'bankAccount' => $_SESSION['bankAccount'],
                 'sixDigits' => $sixDigits,
                 'errorBank' => "",
               ]

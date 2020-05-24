@@ -30,7 +30,7 @@ final class SendMoneyController
       $sendMoneyTo = $_POST['sendMoneyTo'];
       $sendMoney = $_POST['sendMoney'];
 
-      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
     //  $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -53,7 +53,8 @@ final class SendMoneyController
             'send-money.twig',
             [
               'is_login' => isset($_SESSION['is_login']),
-              'money' => isset($_SESSION['money']),
+              'money' => $_SESSION['money'],
+              'sixDigits' => $_SESSION['sixDigits'],
               'bankAccount' => isset($_SESSION['bankAccount']),
               'errorBank' => "User not found",
             ]
@@ -104,7 +105,8 @@ final class SendMoneyController
           'dashboard.twig',
           [
             'is_login' => isset($_SESSION['is_login']),
-            'money' => "",
+            'money' => $_SESSION['money'],
+            'sixDigits' => $_SESSION['sixDigits'],
             'transactions' => "",
             'success' => $success,
 
@@ -121,7 +123,7 @@ final class SendMoneyController
 
           $email = $_SESSION['login'];
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         //  $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
