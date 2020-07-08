@@ -53,15 +53,14 @@ final class RegisterController
       $errorMail = "";
       $_SESSION["errorMail"] = $errorMail;
 
+      $errorPhone = "";
 
-      if (empty($_POST)) {
+      $errorBirthday = "";
 
-          exit;
-      }
 
       if (empty($_POST['email']) || empty($_POST['password'])) {
 
-          $errorPassword = "Introduce a password longer than 6 characters";
+          $errorPassword = $errorPassword . " Introduce a password longer than 6 characters.";
           $_SESSION["errorPassword"] = $errorPassword;
 
           $valid = false;
@@ -78,48 +77,47 @@ final class RegisterController
       if (false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 
-              $errorMail = "The email is not valid";
+              $errorMail = $errorMail . " The email is not valid.";
 
               $_SESSION['errorMail'] = $errorMail;
 
               $valid = false;
-      }else{
+      }
+
+      $email = isset($_POST['email']) ? trim($_POST['email']) : null;
+
+      // List of allowed domains
+      $allowed = [
+          'salle.url.edu'
+      ];
+
+      // Make sure the address is valid
+      if (filter_var($email, FILTER_VALIDATE_EMAIL)) //validem email
+      {
+          // Separate string by @ characters (there should be only one)
+          $parts = explode('@', $email);
+
+          // Remove and return the last part, which should be the domain
+          $domain = array_pop($parts);
+
+          // Check if the domain is in our list
+          if ( ! in_array($domain, $allowed))
+          {
+              $valid = false;
+
+              $errorMail = $errorMail . " The email must be from la salle domain.";
+
+              $_SESSION['errorMail'] = $errorMail;
+
+          }
 
 
-        $email = isset($_POST['email']) ? trim($_POST['email']) : null;
 
-        // List of allowed domains
-        $allowed = [
-            'salle.url.edu'
-        ];
+        $errorMail = "";
 
-        // Make sure the address is valid
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) //validem email
-        {
-            // Separate string by @ characters (there should be only one)
-            $parts = explode('@', $email);
+        $_SESSION['errorMail'] = $errorMail;
 
-            // Remove and return the last part, which should be the domain
-            $domain = array_pop($parts);
 
-            // Check if the domain is in our list
-            if ( ! in_array($domain, $allowed))
-            {
-                $valid = false;
-
-                $errorMail = "The email must be from la salle domain";
-
-                $_SESSION['errorMail'] = $errorMail;
-
-            }
-
-        }else{
-
-          $errorMail = "";
-
-          $_SESSION['errorMail'] = $errorMail;
-
-        }
       }
 
 
@@ -154,35 +152,33 @@ final class RegisterController
 
       if (strlen($password) < 5) { //mirem si es mes llarga que 5
 
-              $errorPassword = "Introduce a password longer than 5 characters";
+              $errorPassword = $errorPassword . " Introduce a password longer than 5 characters";
 
               $_SESSION["errorPassword"] = $errorPassword;
 
               $valid = false;
 
-      }else{
+      }
 
-        if(!(strtolower($password) != $password && strtoupper($password) != $password)){ //mirem si hi ha majuscules i minuscules
+      if(!(strtolower($password) != $password && strtoupper($password) != $password)){ //mirem si hi ha majuscules i minuscules
 
-            $valid = false;
+          $valid = false;
 
-            $_SESSION["errorPassword"] = $errorPassword;
+          $errorPassword = $errorPassword . " Introduce a password with minus and majus";
 
-        }else{
+          $_SESSION["errorPassword"] = $errorPassword;
 
-          if (!(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $password))) //mirem si hi ha numeros i lletres
-          {
+      }
 
-              $valid = false;
+      if (!(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $password))) //mirem si hi ha numeros i lletres
+      {
 
-              $_SESSION["errorPassword"] = $errorPassword;
+          $valid = false;
 
-          }else{
+          $errorPassword = $errorPassword . " Introduce a password with letters and numbers.";
 
-            $_SESSION["errorPassword"] = "";
+          $_SESSION["errorPassword"] = $errorPassword;
 
-          }
-        }
       }
 
       $currentDate = date("d-m-Y");
@@ -193,29 +189,23 @@ final class RegisterController
 
       if(empty($_POST['birthday'])){
 
-        $errorBirthday = "Introduce age";
+        $errorBirthday = "Introduce age (must be +18)";
 
         $_SESSION["errorBirthday"] = $errorBirthday;
 
-      }else{
+      }
 
-        if(!($years >= 18) ){
+      if(!($years >= 18) ){
 
-          $valid = false;
+        $valid = false;
 
-          $errorBirthday = "You must be 18 years or older";
+        $errorBirthday = "You must be 18 years or older";
 
-          $_SESSION["errorBirthday"] = $errorBirthday;
-
-        }else{
-
-          $errorBirthday = "";
-
-          $_SESSION["errorBirthday"] = $errorBirthday;
-
-        }
+        $_SESSION["errorBirthday"] = $errorBirthday;
 
       }
+
+
 
       if(!(empty($_POST['phone']))){
 
@@ -234,7 +224,16 @@ final class RegisterController
         $errorPhone = "";
 
         $_SESSION["errorPhone"] = $errorPhone;
+
       }
+
+      $_SESSION["errorMail"] = $errorMail;
+
+      $_SESSION["errorPassword"] = $errorPassword;
+
+      $_SESSION["errorBirthday"] = $errorBirthday;
+
+      $_SESSION["errorPhone"] = $errorPhone;
 
 
       if($valid == true){
@@ -254,6 +253,10 @@ final class RegisterController
               if(!empty($info)) {
 
                   $_SESSION["errorMail"] = "Last user you typed already exists and you cannot register";
+
+                  $errorMail = $errorMail . " Last user you typed already exists and you cannot register.";
+
+                  $valid = false;
 
               }else{
 
@@ -335,30 +338,61 @@ final class RegisterController
 
 
 
+      }
+
+      $_SESSION["errorMail"] = $errorMail;
+
+      $_SESSION["errorPassword"] = $errorPassword;
+
+      $_SESSION["errorBirthday"] = $errorBirthday;
+
+      $_SESSION["errorPhone"] = $errorPhone;
+
+      $_SESSION["oldMail"] = $email;
+
+      $_SESSION["oldPassword"] = $password;
+
+      $_SESSION["oldBirthday"] = $birthday;
+
+      $_SESSION["oldPhone"] = $phone;
+
+      if($valid == true){
+
+        return $this->container->get('view')->render(
+            $response,
+            'signup.twig',
+            [
+                'errorPassword' => "",
+                'errorMail' => "",
+                'errorBirthday' => "",
+                'errorPhone' => "Succesfully registered!",
+                'oldMail' => $_SESSION['oldMail'],
+                'oldPassword' => $_SESSION['oldPassword'],
+                'oldBirthday' => $_SESSION['oldBirthday'],
+                'oldPhone' => $_SESSION['oldPhone'],
+            ]
+        );
+
       }else{
 
-        $_SESSION["oldMail"] = $email;
-        $_SESSION["oldPassword"] = $password;
-        $_SESSION["oldBirthday"] = $birthday;
-        $_SESSION["oldPhone"] = $phone;
-
+        return $this->container->get('view')->render(
+            $response,
+            'signup.twig',
+            [
+                'errorPassword' => $_SESSION['errorPassword'],
+                'errorMail' => $_SESSION['errorMail'],
+                'errorBirthday' => $_SESSION['errorBirthday'],
+                'errorPhone' => $_SESSION['errorPhone'],
+                'oldMail' => $_SESSION['oldMail'],
+                'oldPassword' => $_SESSION['oldPassword'],
+                'oldBirthday' => $_SESSION['oldBirthday'],
+                'oldPhone' => $_SESSION['oldPhone'],
+            ]
+        );
 
       }
 
-      return $this->container->get('view')->render(
-          $response,
-          'signup.twig',
-          [
-              'errorPassword' => $_SESSION['errorPassword'],
-              'errorMail' => $_SESSION['errorMail'],
-              'errorBirthday' => $_SESSION['errorBirthday'],
-              'errorPhone' => $_SESSION['errorPhone'],
-              'oldMail' => $_SESSION['oldMail'],
-              'oldPassword' => $_SESSION['oldPassword'],
-              'oldBirthday' => $_SESSION['oldBirthday'],
-              'oldPhone' => $_SESSION['oldPhone'],
-          ]
-      );
+
     }
 
 }
