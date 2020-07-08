@@ -24,11 +24,21 @@ final class RequestMoneyController
 
     public function requestMoney(Request $request, Response $response): Response
     {
+
+      $error = 0;
+      $errorMsg = "";
       $email = $_SESSION['login'];
       $requestMoneyTo = $_POST['requestMoneyTo'];
       $requestMoney = $_POST['requestMoney'];
 
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+      if($requestMoney < 0){
+
+        $errorMsg = "You have to introduce positive value (money requested). ";
+        $error = 1;
+
+      }
+
+      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
       //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -46,7 +56,13 @@ final class RequestMoneyController
       $statement->execute();
       $info = $statement->fetch();
 
-      if(empty($info[0])){ //usuario no encontrado
+      if(empty($info[0])){
+
+        $error = 1;
+        $errorMsg = $errorMsg . " User not found.";
+      }
+
+      if($error == 1){ //usuario no encontrado
 
         return $this->container->get('view')->render(
             $response,
@@ -56,7 +72,7 @@ final class RequestMoneyController
               'money' => $_SESSION['money'],
               'sixDigits' => $_SESSION['sixDigits'],
               'bankAccount' => isset($_SESSION['bankAccount']),
-              'errorBank' => "User not found",
+              'errorBank' => $errorMsg,
             ]
         );
 
@@ -130,7 +146,7 @@ final class RequestMoneyController
       if(!empty($_SESSION['login'])) {
 
         $email = $_SESSION['login'];
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
        // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -150,21 +166,41 @@ final class RequestMoneyController
 
         if(empty($info[0])){//not found
 
-          $error = "You don't have any request  😉 ";
+          $error = "Request not found  😉 ";
 
-          return $this->container->get('view')->render(
+          if(empty($_SESSION['money'])){
+
+            return $this->container->get('view')->render(
 
 
-              $response,
-              'pending.twig',
-              [
-                'is_login' => isset($_SESSION['is_login']),
-                'bankAccount' => isset($_SESSION['bankAccount']),
-                'error' => $error,
-                'money' => $_SESSION['money'],
-                'sixDigits' => $_SESSION['sixDigits'],
-              ]
-          );
+                $response,
+                'pending.twig',
+                [
+                  'is_login' => isset($_SESSION['is_login']),
+                  'bankAccount' => isset($_SESSION['bankAccount']),
+                  'error' => $error,
+                  'money' => "",
+                  'sixDigits' => "",
+                ]
+            );
+
+          }else{
+
+
+            return $this->container->get('view')->render(
+
+
+                $response,
+                'pending.twig',
+                [
+                  'is_login' => isset($_SESSION['is_login']),
+                  'bankAccount' => isset($_SESSION['bankAccount']),
+                  'error' => $error,
+                  'money' => $_SESSION['money'],
+                  'sixDigits' => $_SESSION['sixDigits'],
+                ]
+            );
+          }
 
         }else{
 
@@ -203,17 +239,33 @@ final class RequestMoneyController
 
             $error = "Request accepted and money sent";
 
-            return $this->container->get('view')->render(
-                $response,
-                'pending.twig',
-                [
-                  'is_login' => isset($_SESSION['is_login']),
-                  'error' => $error,
-                  'money' => $_SESSION['money'],
-                  'sixDigits' => $_SESSION['sixDigits'],
+            if(empty($_SESSION['money'])){
+              return $this->container->get('view')->render(
+                  $response,
+                  'pending.twig',
+                  [
+                    'is_login' => isset($_SESSION['is_login']),
+                    'error' => $error,
+                    'money' => "",
+                    'sixDigits' => "",
 
-                ]
-            );
+                  ]
+              );
+            }else{
+
+              return $this->container->get('view')->render(
+                  $response,
+                  'pending.twig',
+                  [
+                    'is_login' => isset($_SESSION['is_login']),
+                    'error' => $error,
+                    'money' => $_SESSION['money'],
+                    'sixDigits' => $_SESSION['sixDigits'],
+
+                  ]
+              );
+
+            }
 
           }else{
 
@@ -258,7 +310,7 @@ final class RequestMoneyController
 
         $email = $_SESSION['login'];
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -292,21 +344,43 @@ final class RequestMoneyController
 
         }
 
-        return $this->container->get('view')->render(
-            $response,
-            'pending.twig',
-            [
-              'is_login' => isset($_SESSION['is_login']),
-              'money' => $_SESSION['money'],
-              'sixDigits' => $_SESSION['sixDigits'],
-              'bankAccount' => isset($_SESSION['bankAccount']),
-              'errorBank' => "",
-              'request' => $req,
-              'req_id' => $req_id,
-              'i' => $i,
-              'error' => $error,
-            ]
-        );
+        if(empty($_SESSION['money'])){
+
+          return $this->container->get('view')->render(
+              $response,
+              'pending.twig',
+              [
+                'is_login' => isset($_SESSION['is_login']),
+                'money' => "",
+                'sixDigits' => "",
+                'bankAccount' => isset($_SESSION['bankAccount']),
+                'errorBank' => "",
+                'request' => $req,
+                'req_id' => $req_id,
+                'i' => $i,
+                'error' => $error,
+              ]
+          );
+
+        }else{
+
+          return $this->container->get('view')->render(
+              $response,
+              'pending.twig',
+              [
+                'is_login' => isset($_SESSION['is_login']),
+                'money' => $_SESSION['money'],
+                'sixDigits' => $_SESSION['sixDigits'],
+                'bankAccount' => isset($_SESSION['bankAccount']),
+                'errorBank' => "",
+                'request' => $req,
+                'req_id' => $req_id,
+                'i' => $i,
+                'error' => $error,
+              ]
+          );
+
+        }
 
         }else{
           return $this->container->get('view')->render(
@@ -329,7 +403,7 @@ final class RequestMoneyController
 
         $email = $_SESSION['login'];
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
      //   $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

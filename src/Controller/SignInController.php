@@ -56,6 +56,7 @@ final class SignInController
         $password = $_POST['password'];
 
 
+
         if (false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
             $valid = false;
@@ -115,11 +116,12 @@ final class SignInController
 
               $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-              $statement = $db->query("SELECT USER.id FROM USER WHERE email LIKE '$email' AND password LIKE '$password' AND verified = true" );
+              $statement = $db->query("SELECT USER.password FROM USER WHERE email LIKE '$email' AND verified = true" );
               $statement->execute();
               $info = $statement->fetch();
 
-              if(!empty($info)) {
+
+              if(password_verify($password, $info[0])) {
 
                   $error = "WELCOME " . $email . "!";
 

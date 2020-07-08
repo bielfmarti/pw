@@ -239,6 +239,7 @@ final class RegisterController
 
       if($valid == true){
 
+          $password =  password_hash($password, PASSWORD_DEFAULT);
           try {
 
               $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );

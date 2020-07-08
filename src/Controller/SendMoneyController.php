@@ -30,7 +30,14 @@ final class SendMoneyController
       $sendMoneyTo = $_POST['sendMoneyTo'];
       $sendMoney = $_POST['sendMoney'];
 
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+      if($sendMoney < 0){
+
+        $errorMsg = "You have to introduce positive value (money sent). ";
+        $error = 1;
+
+      }
+
+      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
     //  $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -46,7 +53,13 @@ final class SendMoneyController
       $statement->execute();
       $info = $statement->fetch();
 
-      if(empty($info[0])){ //usuario no encontrado
+      if(empty($info[0])){
+
+        $error = 1;
+        $errorMsg = $errorMsg . " User not found.";
+      }
+
+      if($error == 1){ //usuario no encontrado
 
         return $this->container->get('view')->render(
             $response,
@@ -56,7 +69,7 @@ final class SendMoneyController
               'money' => $_SESSION['money'],
               'sixDigits' => $_SESSION['sixDigits'],
               'bankAccount' => isset($_SESSION['bankAccount']),
-              'errorBank' => "User not found",
+              'errorBank' => $errorMsg,
             ]
         );
 
@@ -153,7 +166,7 @@ final class SendMoneyController
 
           $email = $_SESSION['login'];
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         //  $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
