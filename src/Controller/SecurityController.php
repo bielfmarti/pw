@@ -19,7 +19,7 @@ final class SecurityController
     public function reset(Request $request, Response $response): Response
     {
       try {
-
+          $errorReset = "";
           $email = $_SESSION['login'];
 
           $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
@@ -33,66 +33,64 @@ final class SecurityController
 
           $valid = true;
 
-          if($_POST['passwordOld'] == $info[0]) {
+          $oldOld = $_POST['passwordOld'];
+          $oldC1 = $_POST['passwordC1'];
+          $oldC2 = $_POST['passwordC2'];
 
-              if (strlen($_POST['passwordC1']) < 5) { //mirem si es mes llarga que 5
+          if($_POST['passwordOld'] != $info[0]) {
 
-                      $errorReset = "Introduce a password longer than 5 characters";
-
-                      $valid = false;
-
-              }else{
-
-                if(!(strtolower($_POST['passwordC1']) != $_POST['passwordC1'] && strtoupper($_POST['passwordC1']) != $_POST['passwordC1'])){ //mirem si hi ha majuscules i minuscules
-
-                    $valid = false;
-
-                    $errorReset = "Password not hard enough (need mayus and minus)";
-
-
-                }else{
-
-                  if (!(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $_POST['passwordC1']))) //mirem si hi ha numeros i lletres
-                  {
-
-                      $valid = false;
-
-                      $errorReset = "Password not hard enough (need mayus and minus)";
-
-                  }else{
-
-                    $errorReset = "Password not hard enough (need mayus and minus)";
-
-                  }
-                }
-              }
-              if(($_POST['passwordC1'] != $_POST['passwordC2'])){
-
-                $errorReset = "Error with password reset (confirm passwords dont coincide)";
-
-              }
-
-              if(!(($_POST['passwordC1'] != $_POST['passwordC2']) || $valid == false)){
-
-                $statement = $db->prepare("UPDATE USER SET USER.password = :password WHERE email LIKE '$email'"); //FEM QUE EL TOKEN ESTIGUI COM UTILITZAT
-                $statement->bindParam(':password', $_POST['passwordC1'], PDO::PARAM_STR);
-                $statement->execute();
-                $errorReset = "Password reseted succesfully";
-                $oldOld = "";
-                $oldC1 = "";
-                $oldC2 = "";
-
-              }
-
-          }else{
-
-              $errorReset = "Error with password reset (old password doesnt coincide)";
+              $errorReset = $errorReset . " Error with password reset (old password doesnt coincide)";
               $oldOld = $_POST['passwordOld'];
               $oldC1 = $_POST['passwordC1'];
               $oldC2 = $_POST['passwordC2'];
+              $valid = false;
 
           }
 
+          if (strlen($_POST['passwordC1']) < 5) { //mirem si es mes llarga que 5
+
+                  $errorReset = "Password needs to be longer than 5 characters. ";
+                  $valid = false;
+
+          }
+
+          if(!(strtolower($_POST['passwordC1']) != $_POST['passwordC1'] && strtoupper($_POST['passwordC1']) != $_POST['passwordC1'])){ //mirem si hi ha majuscules i minuscules
+
+
+
+              $errorReset = $errorReset . " Password needs mayus and minus.";
+              $valid = false;
+
+          }
+
+          if (!(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $_POST['passwordC1']))) //mirem si hi ha numeros i lletres
+          {
+
+              $valid = false;
+
+              $errorReset = $errorReset . " Password needs numbers and letters.";
+
+          }
+
+
+          if(($_POST['passwordC1'] != $_POST['passwordC2'])){
+
+            $errorReset = $errorReset . " Confirm passwords dont coincide.";
+            $valid = false;
+
+          }
+
+          if(!(($_POST['passwordC1'] != $_POST['passwordC2']) || $valid == false)){
+
+            $statement = $db->prepare("UPDATE USER SET USER.password = :password WHERE email LIKE '$email'"); //FEM QUE EL TOKEN ESTIGUI COM UTILITZAT
+            $statement->bindParam(':password', $_POST['passwordC1'], PDO::PARAM_STR);
+            $statement->execute();
+            $errorReset = $errorReset . " Password reseted succesfully";
+            $oldOld = "";
+            $oldC1 = "";
+            $oldC2 = "";
+
+          }
 
         } catch (Exception $e) {
 
