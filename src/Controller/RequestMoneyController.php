@@ -28,7 +28,7 @@ final class RequestMoneyController
       $requestMoneyTo = $_POST['requestMoneyTo'];
       $requestMoney = $_POST['requestMoney'];
 
-      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
       //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -130,7 +130,7 @@ final class RequestMoneyController
       if(!empty($_SESSION['login'])) {
 
         $email = $_SESSION['login'];
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
        // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -258,7 +258,7 @@ final class RequestMoneyController
 
         $email = $_SESSION['login'];
 
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
         //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -329,7 +329,7 @@ final class RequestMoneyController
 
         $email = $_SESSION['login'];
 
-        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
      //   $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

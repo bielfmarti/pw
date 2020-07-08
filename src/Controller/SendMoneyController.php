@@ -30,7 +30,7 @@ final class SendMoneyController
       $sendMoneyTo = $_POST['sendMoneyTo'];
       $sendMoney = $_POST['sendMoney'];
 
-      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+        $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
     //  $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -153,7 +153,7 @@ final class SendMoneyController
 
           $email = $_SESSION['login'];
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
         //  $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
