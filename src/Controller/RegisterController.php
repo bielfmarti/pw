@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use Slim\Psr7\Header;
 
 
 final class RegisterController
@@ -329,6 +330,7 @@ final class RegisterController
                       $_SESSION["errorPassword"] = $errorPassword;
                   }
 
+                  header("Location: /");
 
               }
 
