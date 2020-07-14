@@ -239,7 +239,7 @@ final class RegisterController
 
       if($valid == true){
 
-          $password =  password_hash($password, PASSWORD_DEFAULT);
+          $password_hashed =  password_hash($password, PASSWORD_DEFAULT);
           try {
 
               $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
@@ -271,7 +271,7 @@ final class RegisterController
 
                       $statement = $db->prepare("INSERT INTO USER (email, password, birthday, phone) VALUES(:mail, :pass, :birthday, :phone)");
                       $filteredMail= filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                      $filteredPass = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                      $filteredPass = filter_var($password_hashed, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                       $statement->bindParam(':mail', $filteredMail, PDO::PARAM_STR);
                       $statement->bindParam(':pass', $filteredPass, PDO::PARAM_STR);
                       $statement->bindParam(':birthday', $birthday, PDO::PARAM_STR);
@@ -309,7 +309,7 @@ final class RegisterController
                           $mail->isHTML(true);                                  // Set email format to HTML
                           $mail->Subject = 'Activation link for ' . $email;
 
-                          $mail->Body = 'Click this link for activation: http://localhost/activate?token=' . $t;
+                          $mail->Body = 'Click this link for activation: http://localhost/activate?token=' . $t ."\r\n (Potser s'ha de canviar el \"localhost\" a la direcció assignada al teu PC)";
 
                           $mail->send();
 
@@ -330,7 +330,6 @@ final class RegisterController
                       $_SESSION["errorPassword"] = $errorPassword;
                   }
 
-                  header("Location: /");
 
               }
 
@@ -367,7 +366,8 @@ final class RegisterController
                 'errorPassword' => "",
                 'errorMail' => "",
                 'errorBirthday' => "",
-                'errorPhone' => "Succesfully registered!",
+            //    'errorPhone' => "Succesfully registered!",
+                'errorPhone' => "Check your email to verify the account",
                 'oldMail' => $_SESSION['oldMail'],
                 'oldPassword' => $_SESSION['oldPassword'],
                 'oldBirthday' => $_SESSION['oldBirthday'],

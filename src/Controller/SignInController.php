@@ -121,6 +121,7 @@ final class SignInController
               $info = $statement->fetch();
 
 
+
               if(password_verify($password, $info[0])) {
 
                   $error = "WELCOME " . $email . "!";
@@ -133,7 +134,6 @@ final class SignInController
 
 
               }else{
-
                   $error = "Error, try again";
                   $success = "Please Sign In";
               }
