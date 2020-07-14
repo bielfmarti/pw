@@ -242,7 +242,7 @@ final class RegisterController
           $password =  password_hash($password, PASSWORD_DEFAULT);
           try {
 
-              $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+              $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
              // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
               $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -263,7 +263,7 @@ final class RegisterController
 
                   try {
 
-                      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+                      $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
                      // $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
                       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

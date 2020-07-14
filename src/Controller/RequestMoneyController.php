@@ -428,6 +428,10 @@ final class RequestMoneyController
 
           $money = $info[0];
 
+          $_SESSION['bankAccount'] = $bankAccount;
+          $_SESSION['money'] = $money;
+          $_SESSION['sixDigits'] = $sixDigits;
+
 
         }else{
 
@@ -436,11 +440,12 @@ final class RequestMoneyController
 
           header("Location: /account/bank-account");
 
-        }
+          $_SESSION['bankAccount'] = "";
+          $_SESSION['money'] = "";
+          $_SESSION['sixDigits'] = "";
+          $sixDigits = "";
 
-        $_SESSION['bankAccount'] = $bankAccount;
-        $_SESSION['money'] = $money;
-        $_SESSION['sixDigits'] = $sixDigits;
+        }
 
 
           return $this->container->get('view')->render(

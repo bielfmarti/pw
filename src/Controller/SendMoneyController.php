@@ -24,9 +24,9 @@ final class SendMoneyController
 
     public function sendMoney(Request $request, Response $response): Response
     {
-
+      $error = 0;
       $email = $_SESSION['login'];
-
+      $errorMsg = "";
       $sendMoneyTo = $_POST['sendMoneyTo'];
       $sendMoney = $_POST['sendMoney'];
 
@@ -49,7 +49,7 @@ final class SendMoneyController
 
       $idSender = $info[0];
 
-      $statement = $db->query("SELECT USER.id FROM USER WHERE email LIKE '$sendMoneyTo' AND email NOT LIKE '$email' AND verified = 1" );
+      $statement = $db->query("SELECT USER.id FROM USER WHERE email LIKE '$sendMoneyTo' AND email NOT LIKE '$email' AND verified = 1 AND ibn NOT LIKE ''" );
       $statement->execute();
       $info = $statement->fetch();
 
@@ -189,6 +189,11 @@ final class SendMoneyController
 
             $money = $info[0];
 
+            $_SESSION['bankAccount'] = $bankAccount;
+            $_SESSION['money'] = $money;
+            $_SESSION['sixDigits'] = $sixDigits;
+
+
           }else{
 
             $bankAccount = false;
@@ -196,18 +201,22 @@ final class SendMoneyController
 
             header("Location: /account/bank-account");
 
+            $_SESSION['bankAccount'] = "";
+            $_SESSION['money'] = "";
+            $_SESSION['sixDigits'] = "";
+            $sixDigits = "";
+
           }
 
-          $_SESSION['bankAccount'] = $bankAccount;
-          $_SESSION['money'] = $money;
+
 
           return $this->container->get('view')->render(
               $response,
               'send-money.twig',
               [
-                'is_login' => isset($_SESSION['is_login']),
+                'is_login' => $_SESSION['is_login'],
                 'money' => $money,
-                'bankAccount' => isset($_SESSION['bankAccount']),
+                'bankAccount' => $_SESSION['bankAccount'],
                 'sixDigits' => $sixDigits,
                 'errorBank' => "",
               ]

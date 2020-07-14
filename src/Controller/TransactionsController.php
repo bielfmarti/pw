@@ -28,7 +28,7 @@ final class TransactionsController
 
         $email = $_SESSION['login'];
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
       //  $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -46,7 +46,7 @@ final class TransactionsController
 
         $i = 0;
 
-        $message[] = 0;
+        $message[] = "";
 
         while (!empty($info[$i][0])) {
 
@@ -58,17 +58,24 @@ final class TransactionsController
 
             if($info[$i][0] == "send"){
 
-              $message[$i] = "-You sent " . $info[$i][3]. "$ to " . $info[$i][2];
+              $message[$i] = "-You sent " . $info[$i][3]. "$ to ID: " . $info[$i][2];
             }
 
             if($info[$i][0] == "acceptedRequest" && $info[$i][1] == $userId){
 
-              $message[$i] = "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she accepted";
+              $message[$i] = "-You requested " . $info[$i][3]. "$ from ID: " . $info[$i][2]. " and he/she accepted";
+
+            }
+
+            if($info[$i][0] == "acceptedRequest" && $info[$i][2] == $userId){
+
+              $message[$i] = "-ID: " . $info[$i][1] ." requested " . $info[$i][3]. "$ from you (ID: ".$info[$i][2]. ") and you accepted";
+
             }
 
             if($info[$i][0] == "pendingRequest" && $info[$i][1] == $userId){
 
-              $message[$i] = "-You requested " . $info[$i][3]. "$ from " . $info[$i][2]. " and he/she hasn't accepted yet";
+              $message[$i] = "-You requested " . $info[$i][3]. "$ from ID: " . $info[$i][2]. " and he/she hasn't accepted yet";
             }
 
             $i++;

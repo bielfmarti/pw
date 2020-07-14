@@ -33,7 +33,7 @@ final class BankAccountController
           $bankAccount = false;
 
           $email = $_SESSION['login'];
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         //  $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -152,7 +152,7 @@ final class BankAccountController
 
       if($errorValidation == false){
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
         //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -203,7 +203,7 @@ final class BankAccountController
 
           $email = $_SESSION['login'];
 
-          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'homestead', 'secret' );
+          $db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
           //$db = new PDO('mysql:host=localhost;dbname=pwpay', 'root' );
 
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
